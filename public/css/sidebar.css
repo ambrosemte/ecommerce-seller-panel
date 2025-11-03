@@ -1,0 +1,55 @@
+.sidebar {
+    width: 240px;
+    background-color: #ffffff;
+    padding-top: 20px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 800;
+    padding: 10px;
+}
+
+.logo span:first-child {
+    color: #4880FF;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+    position: relative;
+}
+
+.menu-item:hover {
+    background: rgba(72, 128, 255, 0.1);
+}
+
+.menu-item.active {
+    background: #4880FF;
+    color: white;
+    border-radius: 6px;
+}
+
+.menu-item.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 9px;
+    height: 100%;
+    background: #4880FF;
+    border-radius: 4px;
+}
+
+.menu-icon {
+    font-size: 22px;
+    margin-right: 15px;
+}
+
+.menu-text {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
