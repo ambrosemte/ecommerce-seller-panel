@@ -130,7 +130,7 @@ class CreateProduct extends Component
             "Accept" => "application/json"
         ];
 
-        $response = Http::withHeaders($headers)->get(ApiEndpoints::BASE_URL . ApiEndpoints::LIST_CATEGORIES . "/" . $this->categoryId);
+        $response = Http::withHeaders($headers)->get(ApiEndpoints::BASE_URL . ApiEndpoints::LIST_SPECIFICATIONS_BY_CATEGORY . "/" . $this->categoryId);
 
         $responseData = $response->json();
         $this->specifications = $responseData['data'];
