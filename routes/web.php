@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/login', Login::class)->name('login')->middleware('guest');
-Route::get('/deploy', DeployController::class)->name('delpoy')->middleware('guest');
+Route::get('/deploy', [DeployController::class, 'deploy'])->name('delpoy')->middleware('guest');
 
 Route::group(['middleware' => CheckAuth::class], function () {
     //dashboard
