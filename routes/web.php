@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DeployController;
 use App\Http\Middleware\CheckAuth;
 use App\Livewire\Auth\Login;
 use App\Livewire\Product\CreateProduct;
@@ -17,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/login', Login::class)->name('login')->middleware('guest');
+Route::get('/deploy', DeployController::class)->name('delpoy')->middleware('guest');
 
 Route::group(['middleware' => CheckAuth::class], function () {
     //dashboard
