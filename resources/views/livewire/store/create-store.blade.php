@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent="validateCreateStore">
+    <form wire:submit.prevent="createStore">
         <div class="mb-3 row">
             <div class="col">
                 <label for="storeName" class="form-label">Name</label>
@@ -18,18 +18,18 @@
         </div>
         <div class="mb-3">
             @if ($storeImage)
-                <img src="{{ $storeImage->temporaryUrl() }}" class="w-24 h-24 rounded-lg shadow-md object-cover" width="150">
+                <img src="{{ $storeImage->temporaryUrl() }}" class="w-24 h-24 rounded-lg shadow-md object-cover"
+                    width="150">
             @else
                 <img src="https://placehold.co/150" class="w-24 h-24 rounded-lg shadow-md object-cover">
             @endif
         </div>
 
-        <button type="submit" class="btn btn-primary" {{$showLoader ?? 'disabled'}}>
-            @if ($showLoader)
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            @else
-                <span>Submit</span>
-            @endif
+        <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
+            <span wire:loading.remove>Submit</span>
+            <span wire:loading>
+                <span class="spinner-border spinner-border-sm me-1"></span> Processing...
+            </span>
         </button>
     </form>
     @script

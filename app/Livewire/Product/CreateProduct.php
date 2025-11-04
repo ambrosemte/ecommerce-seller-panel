@@ -100,11 +100,11 @@ class CreateProduct extends Component
     public function getStores()
     {
         $headers = [
-            "Authorization" => "Bearer 28|MPTpv7uxKYVrDEOv9S30iDQlOPAVbHWbOw2sLCCn9aae1e33",
+            "Authorization" => "Bearer " . session()->get('token'),
             "Accept" => "application/json"
         ];
 
-        $response = Http::withHeaders($headers)->get('http://127.0.0.1:8000/api/v1/store');
+        $response = Http::withHeaders($headers)->get(ApiEndpoints::BASE_URL . ApiEndpoints::LIST_STORES);
 
         $responseData = $response->json();
         $this->stores = $responseData['data'];
@@ -113,11 +113,11 @@ class CreateProduct extends Component
     public function getCategories()
     {
         $headers = [
-            "Authorization" => "Bearer 28|MPTpv7uxKYVrDEOv9S30iDQlOPAVbHWbOw2sLCCn9aae1e33",
+            "Authorization" => "Bearer " . session()->get('token'),
             "Accept" => "application/json"
         ];
 
-        $response = Http::withHeaders($headers)->get('http://127.0.0.1:8000/api/v1/category');
+        $response = Http::withHeaders($headers)->get(ApiEndpoints::BASE_URL . ApiEndpoints::LIST_CATEGORIES);
 
         $responseData = $response->json();
         $this->categories = $responseData['data'];
@@ -126,11 +126,11 @@ class CreateProduct extends Component
     public function getSpecifications()
     {
         $headers = [
-            "Authorization" => "Bearer 28|MPTpv7uxKYVrDEOv9S30iDQlOPAVbHWbOw2sLCCn9aae1e33",
+            "Authorization" => "Bearer " . session()->get('token'),
             "Accept" => "application/json"
         ];
 
-        $response = Http::withHeaders($headers)->get("http://127.0.0.1:8000/api/v1/specification/$this->categoryId");
+        $response = Http::withHeaders($headers)->get(ApiEndpoints::BASE_URL . ApiEndpoints::LIST_CATEGORIES . "/" . $this->categoryId);
 
         $responseData = $response->json();
         $this->specifications = $responseData['data'];
@@ -150,25 +150,18 @@ class CreateProduct extends Component
         }
     }
 
-
-
-    public function validateCreateProduct()
-    {
-        $this->validate([
-            'storeId' => 'required|string|max:255',
-            'categoryId' => 'required|string',
-            'productName' => 'required|string|max:255',
-            'productDescription' => 'required|string',
-            'variations.*.quantity' => 'required|integer',
-            'variations.*.price' => 'required|numeric',
-            'variations.*.discount' => 'nullable|numeric',
-            'variations.*.images' => 'required|array|min:1',
-            'variations.*.images.*' => 'required|file|image|max:5124',
-            'variations.*.specifications.*.value' => 'required',
-        ]);
-        $this->showLoader = true;
-        $this->dispatch('callCreateProduct');
-    }
+    public $rules = [
+        'storeId' => 'required|string|max:255',
+        'categoryId' => 'required|string',
+        'productName' => 'required|string|max:255',
+        'productDescription' => 'required|string',
+        'variations.*.quantity' => 'required|integer',
+        'variations.*.price' => 'required|numeric',
+        'variations.*.discount' => 'nullable|numeric',
+        'variations.*.images' => 'required|array|min:1',
+        'variations.*.images.*' => 'required|file|image|max:5124',
+        'variations.*.specifications.*.value' => 'required',
+    ];
 
     public function createProduct()
     {

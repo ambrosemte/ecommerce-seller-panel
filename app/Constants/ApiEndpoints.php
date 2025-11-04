@@ -36,4 +36,10 @@ class ApiEndpoints
     const ACCEPT_ORDER = "/api/v1/order/seller/accept";
     const DECLINE_ORDER = "/api/v1/order/seller/decline";
 
+    //CATEGORY
+    const LIST_CATEGORIES = "/api/v1/category";
+
+    //SPECIFICATION
+    const LIST_SPECIFICATIONS_BY_CATEGORY = "/api/v1/specification";
+
 }

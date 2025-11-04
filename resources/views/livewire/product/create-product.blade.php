@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent="validateCreateProduct">
+    <form wire:submit.prevent="createProduct">
         <!-- Store & Category Selection -->
         <div class="mb-3 row">
             <div class="col">
@@ -168,7 +168,12 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
+            <span wire:loading.remove>Submit</span>
+            <span wire:loading>
+                <span class="spinner-border spinner-border-sm me-1"></span> Processing...
+            </span>
+        </button>
     </form>
 
     @script

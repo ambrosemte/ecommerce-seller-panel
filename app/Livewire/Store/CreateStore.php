@@ -17,15 +17,10 @@ class CreateStore extends Component
     public string $storeName;
     public $storeImage;
 
-    public function validateCreateStore()
-    {
-        $this->validate([
-            'storeName' => 'required|string|max:255',
-            'storeImage' => 'required|image|max:5120', // Ensure it's an image (Max 5MB)
-        ]);
-        $this->showLoader = true;
-        $this->dispatch('callCreateStore');
-    }
+    public $rules = [
+        'storeName' => 'required|string|max:255',
+        'storeImage' => 'required|image|max:5120', // Ensure it's an image (Max 5MB)
+    ];
 
     public function createStore()
     {
