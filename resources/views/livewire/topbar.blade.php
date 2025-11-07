@@ -10,7 +10,7 @@
 
     <!-- Right: User Profile + Logout -->
     <div class="d-flex align-items-center">
-        <img src="https://dummyimage.com/40" alt="Profile" class="rounded-circle me-2" width="40" height="40">
+        <img src="{{ asset('images/default.png') }}" alt="Profile" class="rounded-circle me-2" width="40" height="40">
         <span class="me-5">{{ $name }}</span>
         <button type="submit" class="btn btn-outline-danger btn-sm" wire:loading.attr="disabled" wire:click="logout">
             <span wire:loading.remove>Logout</span>

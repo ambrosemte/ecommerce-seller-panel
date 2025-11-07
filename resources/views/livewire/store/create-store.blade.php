@@ -21,7 +21,7 @@
                 <img src="{{ $storeImage->temporaryUrl() }}" class="w-24 h-24 rounded-lg shadow-md object-cover"
                     width="150">
             @else
-                <img src="https://placehold.co/150" class="w-24 h-24 rounded-lg shadow-md object-cover">
+                <img src="{{ asset('images/default.png') }}" class="w-24 h-24 rounded-lg shadow-md object-cover" width="150">
             @endif
         </div>
 
@@ -32,11 +32,4 @@
             </span>
         </button>
     </form>
-    @script
-    <script>
-        $wire.on('callCreateStore', () => {
-            $wire.call('createStore');
-        });
-    </script>
-    @endscript
 </div>

@@ -17,13 +17,14 @@ class CreateStore extends Component
     public string $storeName;
     public $storeImage;
 
-    public $rules = [
-        'storeName' => 'required|string|max:255',
-        'storeImage' => 'required|image|max:5120', // Ensure it's an image (Max 5MB)
-    ];
 
     public function createStore()
     {
+        $this->validate([
+            'storeName' => 'required|string|max:100',
+            'storeImage' => 'required|image|max:5120', // Ensure it's an image (Max 5MB)
+        ]);
+        
         try {
             // Convert Livewire file to a real file
             $imagePath = $this->storeImage->getRealPath();

@@ -75,7 +75,7 @@
     </a>
 
     <!-- Store Dropdown -->
-    <div @class(["menu-item", "active" => request()->is('store') || request()->is('store/create')])
+    <div @class(["menu-item", "active" => request()->is('store/*')])
         onclick="toggleDropdown('storeDropdown')">
         <i class="las la-store menu-icon"></i>
         <span>Store</span>
@@ -88,7 +88,7 @@
                 <span>List Store</span>
             </div>
         </a>
-        <a href="{{ route('create.store') }}" class="text-decoration-none">
+        <a href="{{ route('store.create') }}" class="text-decoration-none">
             <div class="menu-item">
                 <i class="las la-plus-circle menu-icon"></i>
                 <span>Create Store</span>
@@ -97,7 +97,7 @@
     </div>
 
     <!-- Product Dropdown -->
-    <div @class(["menu-item", "active" => request()->is('product') || request()->is('product/create')])
+    <div @class(["menu-item", "active" => request()->is('product/*')])
         onclick="toggleDropdown('productDropdown')">
         <i class="las la-box menu-icon"></i>
         <span>Product</span>
@@ -110,7 +110,7 @@
                 <span>List Product</span>
             </div>
         </a>
-        <a href="{{ route('create.product') }}" class="text-decoration-none">
+        <a href="{{ route('product.create') }}" class="text-decoration-none">
             <div class="menu-item">
                 <i class="las la-plus-circle menu-icon"></i>
                 <span>Create Product</span>
@@ -120,7 +120,7 @@
 
 
     <!-- Orders Dropdown -->
-    <div @class(["menu-item", "active" => request()->is('order')]) onclick="toggleDropdown('orderDropdown')">
+    <div @class(["menu-item", "active" => request()->is('order/*')]) onclick="toggleDropdown('orderDropdown')">
         <i class="las la-shopping-bag menu-icon"></i>
         <span>Orders</span>
         <i class="las la-angle-down ms-auto"></i>

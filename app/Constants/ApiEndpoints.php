@@ -20,21 +20,22 @@ class ApiEndpoints
     const UPDATE_PREFERRED_CURRENCY = "/api/v1/user/preferred-currency";
 
     // STORE
-    const LIST_STORES = "/api/v1/store/seller";
-    const CREATE_STORE = "/api/v1/store/seller/create";
+    const LIST_STORES = "/api/v1/store";
+    const CREATE_STORE = "/api/v1/store";
     const VIEW_STORE = "/api/v1/store";
+    const DELETE_STORE = "/api/v1/store";
 
     // PRODUCT
-    const LIST_PRODUCTS = "/api/v1/product/seller";
-    const CREATE_PRODUCT = "/api/v1/product/seller/create";
+    const LIST_PRODUCTS = "/api/v1/product";
+    const CREATE_PRODUCT = "/api/v1/product";
     const VIEW_PRODUCT = "/api/v1/product";
     const UPDATE_PRODUCT = "/api/v1/product/{id}/update";
     const DELETE_PRODUCT = "/api/v1/product";
 
     // ORDER
-    const LIST_ORDERS = "/api/v1/order/seller";
-    const ACCEPT_ORDER = "/api/v1/order/seller/accept";
-    const DECLINE_ORDER = "/api/v1/order/seller/decline";
+    const LIST_ORDERS = "/api/v1/order";
+    const ACCEPT_ORDER = "/api/v1/order/accept";
+    const DECLINE_ORDER = "/api/v1/order/decline";
 
     //CATEGORY
     const LIST_CATEGORIES = "/api/v1/category";

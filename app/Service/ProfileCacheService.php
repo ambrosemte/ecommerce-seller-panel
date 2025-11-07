@@ -7,7 +7,7 @@ class ProfileCacheService
 {
     public function save($data)
     {
-        Cache::put('profile', $data, now()->addMinutes(30));
+        Cache::put('profile', $data, null);
     }
 
     public function get()

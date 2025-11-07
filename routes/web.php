@@ -27,15 +27,15 @@ Route::group(['middleware' => CheckAuth::class], function () {
     //store
     Route::group(['prefix' => "store"], function () {
         Route::get('/', ListStore::class)->name('store');
-        Route::get('create', CreateStore::class)->name('create.store');
-        Route::get('{id}', ViewStore::class)->name('view.store');
+        Route::get('create', CreateStore::class)->name('store.create');
+        Route::get('{id}', ViewStore::class)->name('store.view');
     });
 
     //product
     Route::group(['prefix' => "product"], function () {
         Route::get('/', ListProduct::class)->name('product');
-        Route::get('create', CreateProduct::class)->name('create.product');
-        Route::get('{id}', ViewProduct::class)->name('view.product');
+        Route::get('create', CreateProduct::class)->name('product.create');
+        Route::get('{id}', ViewProduct::class)->name('product.view');
     });
 
     //order

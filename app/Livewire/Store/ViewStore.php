@@ -50,7 +50,7 @@ class ViewStore extends Component
             "Accept" => "application/json"
         ];
 
-        $response = Http::withHeaders($headers)->delete("http://127.0.0.1:8000/api/v1/store/delete/$this->id");
+        $response = Http::withHeaders($headers)->delete(ApiEndpoints::BASE_URL . ApiEndpoints::DELETE_STORE . "/{$this->id}");
 
         $responseData = $response->json();
 

@@ -150,21 +150,21 @@ class CreateProduct extends Component
         }
     }
 
-    public $rules = [
-        'storeId' => 'required|string|max:255',
-        'categoryId' => 'required|string',
-        'productName' => 'required|string|max:255',
-        'productDescription' => 'required|string',
-        'variations.*.quantity' => 'required|integer',
-        'variations.*.price' => 'required|numeric',
-        'variations.*.discount' => 'nullable|numeric',
-        'variations.*.images' => 'required|array|min:1',
-        'variations.*.images.*' => 'required|file|image|max:5124',
-        'variations.*.specifications.*.value' => 'required',
-    ];
-
     public function createProduct()
     {
+        $this->validate([
+            'storeId' => 'required|string|max:255',
+            'categoryId' => 'required|string',
+            'productName' => 'required|string|max:255',
+            'productDescription' => 'required|string',
+            'variations.*.quantity' => 'required|integer',
+            'variations.*.price' => 'required|numeric',
+            'variations.*.discount' => 'nullable|numeric',
+            'variations.*.images' => 'required|array|min:1',
+            'variations.*.images.*' => 'required|file|image|max:5124',
+            'variations.*.specifications.*.value' => 'required',
+        ]);
+
         // Initialize HTTP request with headers
         $httpRequest = Http::withHeaders([
             "Authorization" => "Bearer " . session()->get('token'),

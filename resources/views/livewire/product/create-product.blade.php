@@ -175,12 +175,4 @@
             </span>
         </button>
     </form>
-
-    @script
-    <script>
-        $wire.on('callCreateProduct', () => {
-            $wire.call('createProduct');
-        });
-    </script>
-    @endscript
 </div>
