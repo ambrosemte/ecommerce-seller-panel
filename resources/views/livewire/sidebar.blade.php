@@ -75,7 +75,7 @@
     </a>
 
     <!-- Store Dropdown -->
-    <div @class(["menu-item", "active" => request()->is('store/*')])
+    <div @class(["menu-item", "active" => request()->is('store')||request()->is('store/*')])
         onclick="toggleDropdown('storeDropdown')">
         <i class="las la-store menu-icon"></i>
         <span>Store</span>
@@ -97,7 +97,7 @@
     </div>
 
     <!-- Product Dropdown -->
-    <div @class(["menu-item", "active" => request()->is('product/*')])
+    <div @class(["menu-item", "active" => request()->is('product')||request()->is('product/*')])
         onclick="toggleDropdown('productDropdown')">
         <i class="las la-box menu-icon"></i>
         <span>Product</span>
@@ -120,7 +120,7 @@
 
 
     <!-- Orders Dropdown -->
-    <div @class(["menu-item", "active" => request()->is('order/*')]) onclick="toggleDropdown('orderDropdown')">
+    <div @class(["menu-item", "active" => request()->is('order')||request()->is('order/*')]) onclick="toggleDropdown('orderDropdown')">
         <i class="las la-shopping-bag menu-icon"></i>
         <span>Orders</span>
         <i class="las la-angle-down ms-auto"></i>
