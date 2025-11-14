@@ -24,7 +24,7 @@ class CreateStore extends Component
             'storeName' => 'required|string|max:100',
             'storeImage' => 'required|image|max:5120', // Ensure it's an image (Max 5MB)
         ]);
-        
+
         try {
             // Convert Livewire file to a real file
             $imagePath = $this->storeImage->getRealPath();
@@ -55,7 +55,7 @@ class CreateStore extends Component
         }
     }
 
-    #[Layout('components.layouts.app', ['title' => "Create Store"])]
+    #[Layout('components.layouts.app')]
     public function render()
     {
         return view('livewire.store.create-store');

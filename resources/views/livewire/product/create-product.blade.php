@@ -1,4 +1,8 @@
-<div>
+<div class="container">
+     <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold mb-0">Create Product</h3>
+    </div>
+
     <form wire:submit.prevent="createProduct">
         <!-- Store & Category Selection -->
         <div class="mb-3 row">

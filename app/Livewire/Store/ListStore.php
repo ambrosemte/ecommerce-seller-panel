@@ -42,10 +42,10 @@ class ListStore extends Component
 
     public function viewStore($storeId)
     {
-        return $this->redirect(route('view.store', ['id' => $storeId]));
+        return $this->redirect(route('store.view', ['id' => $storeId]));
     }
 
-    #[Layout('components.layouts.app', ['title' => "List Stores"])]
+    #[Layout('components.layouts.app')]
     public function render()
     {
         return view('livewire.store.list-store');

@@ -81,7 +81,7 @@ class ListOrder extends Component
         }
     }
 
-    #[Layout('components.layouts.app', ['title' => "List Orders"])]
+    #[Layout('components.layouts.app')]
     public function render()
     {
         return view('livewire.order.list-order');

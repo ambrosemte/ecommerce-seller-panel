@@ -107,7 +107,7 @@ class CreateProduct extends Component
         $response = Http::withHeaders($headers)->get(ApiEndpoints::BASE_URL . ApiEndpoints::LIST_STORES);
 
         $responseData = $response->json();
-        $this->stores = $responseData['data'];
+        $this->stores = $responseData['data']??[];
     }
 
     public function getCategories()
@@ -216,7 +216,7 @@ class CreateProduct extends Component
     }
 
 
-    #[Layout('components.layouts.app', ['title' => "Create Product"])]
+    #[Layout('components.layouts.app')]
     public function render()
     {
         return view('livewire.product.create-product');

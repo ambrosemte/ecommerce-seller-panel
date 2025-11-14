@@ -62,7 +62,7 @@ class ViewStore extends Component
         }
     }
 
-    #[Layout('components.layouts.app', ['title' => "View Store"])]
+    #[Layout('components.layouts.app')]
     public function render()
     {
         return view('livewire.store.view-store');

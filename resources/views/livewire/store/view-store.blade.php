@@ -1,4 +1,8 @@
 <div class="container">
+     <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold mb-0">View Store</h3>
+    </div>
+
     <div class="row g-4"> <!-- Bootstrap grid with gap -->
 
         <!-- Store Card (Full Width) -->
@@ -45,7 +49,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $product['name'] }}</h5>
                             <p class="card-text">{{ $product['description'] }}</p>
-                            <a href="{{route('view.product',$product['id'])}}" class="btn btn-primary">View Product</a>
+                            <a href="{{route('product.view',$product['id'])}}" class="btn btn-primary">View Product</a>
                         </div>
                     </div>
                 </div>

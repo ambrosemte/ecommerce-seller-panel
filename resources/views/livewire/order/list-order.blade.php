@@ -1,4 +1,8 @@
 <div class="container">
+     <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold mb-0">Orders List</h3>
+    </div>
+
     @foreach($orders as $order)
         <div class="card mb-3">
             <div class="row g-0">
@@ -33,7 +37,7 @@
                         @endif
 
                         {{-- View Product Button --}}
-                        <a href="{{ route('view.product', $order['product']['id']) }}"
+                        <a href="{{ route('product.view', $order['product']['id']) }}"
                             class="btn btn-outline-primary btn-sm ms-3">
                             View Product
                         </a>

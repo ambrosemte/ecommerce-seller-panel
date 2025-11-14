@@ -62,7 +62,7 @@ class ViewProduct extends Component
             }
 
             noty()->success($responseData['message']);
-            return $this->redirect(route('store'));
+            return $this->redirect(route('product'));
         } catch (\Exception $e) {
             Log::error('Delete Product Error: ' . $e->getMessage());
             noty()->error("An error occurred while deleting the product. Please try again.");
@@ -70,7 +70,7 @@ class ViewProduct extends Component
 
     }
 
-    #[Layout('components.layouts.app', ['title' => "View Product"])]
+    #[Layout('components.layouts.app')]
     public function render()
     {
         return view('livewire.product.view-product');

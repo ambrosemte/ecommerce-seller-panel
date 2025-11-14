@@ -39,7 +39,7 @@ class Dashboard extends Component
         }
     }
 
-    #[Layout('components.layouts.app', ['title' => "Dashboard"])]
+    #[Layout('components.layouts.app')]
     public function render()
     {
         return view('livewire.dashboard');

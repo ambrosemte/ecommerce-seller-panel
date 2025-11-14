@@ -28,9 +28,6 @@
 
             {{-- Page body --}}
             <div style="flex: 1; background: #F5F6FA; padding: 31px 30px;">
-                <div style="color: #202224; font-size: 32px; font-family: Nunito Sans; font-weight: 700;">
-                    {{ $title }}
-                </div>
                 {{ $slot }}
             </div>
         </div>

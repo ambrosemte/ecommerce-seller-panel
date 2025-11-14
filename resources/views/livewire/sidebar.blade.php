@@ -85,7 +85,7 @@
         <a href="{{ route('store') }}" class="text-decoration-none">
             <div class="menu-item">
                 <i class="las la-list-ul menu-icon"></i>
-                <span>List Store</span>
+                <span>Stores List</span>
             </div>
         </a>
         <a href="{{ route('store.create') }}" class="text-decoration-none">
@@ -107,7 +107,7 @@
         <a href="{{ route('product') }}" class="text-decoration-none">
             <div class="menu-item">
                 <i class="las la-list-ul menu-icon"></i>
-                <span>List Product</span>
+                <span>Products List</span>
             </div>
         </a>
         <a href="{{ route('product.create') }}" class="text-decoration-none">
@@ -129,7 +129,7 @@
         <a href="{{ route('order') }}" class="text-decoration-none">
             <div class="menu-item">
                 <i class="las la-list-alt menu-icon"></i>
-                <span>List Orders</span>
+                <span>Orders List</span>
             </div>
         </a>
     </div>

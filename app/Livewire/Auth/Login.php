@@ -5,6 +5,7 @@ namespace App\Livewire\Auth;
 use App\Constants\ApiEndpoints;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -26,7 +27,8 @@ class Login extends Component
     {
         try {
             $headers = [
-                "Accept" => "application/json"
+                "Accept" => "application/json",
+                "x-guest-id" => (string) Str::uuid(),
             ];
 
             $requestBody = [
@@ -53,7 +55,7 @@ class Login extends Component
         }
     }
 
-    #[Layout('components.layouts.auth', ['title' => "Login"])]
+    #[Layout('components.layouts.auth')]
     public function render()
     {
         return view('livewire.auth.login');
