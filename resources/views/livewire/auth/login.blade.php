@@ -5,7 +5,6 @@
                 <i class="las la-store-alt"></i> Seller Panel
             </h4>
 
-
             <form wire:submit.prevent="login">
                 <div class="mb-3">
                     <label for="email" class="form-label fw-semibold">Email address</label>
@@ -32,8 +31,8 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100" wire:loading.attr="disabled">
-                    <span wire:loading.remove>Login</span>
-                    <span wire:loading>
+                    <span wire:loading.remove wire:target="login">Login</span>
+                    <span wire:loading wire:target="login">
                         <span class="spinner-border spinner-border-sm me-1"></span> Processing...
                     </span>
                 </button>

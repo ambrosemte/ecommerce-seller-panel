@@ -50,7 +50,7 @@ class ListOrder extends Component
             "Accept" => "application/json"
         ];
         $response = Http::withHeaders($headers)
-            ->put(ApiEndpoints::BASE_URL . ApiEndPoints::DECLINE_ORDER . "/" . $orderId);
+            ->put(ApiEndpoints::BASE_URL . ApiEndPoints::ACCEPT_ORDER . "/" . $orderId);
 
         $responseData = $response->json();
 
