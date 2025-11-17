@@ -24,6 +24,7 @@ class CreateProduct extends Component
     public array $specifications = [];
     public array $specificationKeys = [];
     public array $specificationValues = [];
+    public array $tempImages = [];
 
     public function mount()
     {
@@ -95,6 +96,39 @@ class CreateProduct extends Component
         }
     }
 
+    // New method to handle image uploads
+    public function updatedTempImages($value, $key)
+    {
+        // Extract variation index from the key (e.g., "0" from "tempImages.0")
+        $variationIndex = (int) $key;
+
+        // Validate the uploaded images
+        $this->validate([
+            "tempImages.$variationIndex.*" => 'required|file|image|max:5124',
+        ]);
+
+        // Append new images to existing images
+        if (isset($this->tempImages[$variationIndex])) {
+            foreach ($this->tempImages[$variationIndex] as $newImage) {
+                $this->variations[$variationIndex]['images'][] = $newImage;
+            }
+
+            // Clear temp images after appending
+            unset($this->tempImages[$variationIndex]);
+        }
+
+        $this->reset(['tempImages']);
+    }
+
+    // New method to remove a specific image
+    public function removeImage($variationIndex, $imageIndex)
+    {
+        if (isset($this->variations[$variationIndex]['images'][$imageIndex])) {
+            unset($this->variations[$variationIndex]['images'][$imageIndex]);
+            // Reindex the array
+            $this->variations[$variationIndex]['images'] = array_values($this->variations[$variationIndex]['images']);
+        }
+    }
 
 
     public function getStores()
@@ -107,7 +141,7 @@ class CreateProduct extends Component
         $response = Http::withHeaders($headers)->get(ApiEndpoints::BASE_URL . ApiEndpoints::LIST_STORES);
 
         $responseData = $response->json();
-        $this->stores = $responseData['data']??[];
+        $this->stores = $responseData['data'] ?? [];
     }
 
     public function getCategories()
@@ -150,13 +184,14 @@ class CreateProduct extends Component
         }
     }
 
+
     public function createProduct()
     {
         $this->validate([
             'storeId' => 'required|string|max:255',
             'categoryId' => 'required|string',
-            'productName' => 'required|string|max:255',
-            'productDescription' => 'required|string',
+            'productName' => 'required|string|max:100',
+            'productDescription' => 'required|string|max:255',
             'variations.*.quantity' => 'required|integer',
             'variations.*.price' => 'required|numeric',
             'variations.*.discount' => 'nullable|numeric',
@@ -207,12 +242,28 @@ class CreateProduct extends Component
 
         $responseData = $response->json();
 
-        if ($response->successful()) {
-            $this->reset();
-            noty()->success($responseData['message']);
-        } else {
+        if (!$response->successful()) {
             noty()->error($responseData['message'] ?? 'An error occurred.');
+            return;
         }
+
+        $this->reset();
+        $this->variations = [
+            [
+                'quantity' => null,
+                'price' => null,
+                'discount' => null,
+                'images' => [],
+                'specifications' => [
+                    [
+                        'key_id' => null,
+                        'value' => null,
+                        'type' => 'text',
+                    ],
+                ],
+            ]
+        ];
+        noty()->success($responseData['message']);
     }
 
 

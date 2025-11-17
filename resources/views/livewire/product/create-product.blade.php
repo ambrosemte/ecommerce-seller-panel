@@ -1,5 +1,5 @@
 <div class="container">
-     <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="fw-bold mb-0">Create Product</h3>
     </div>
 
@@ -85,19 +85,39 @@
                     <!-- Variation Images -->
                     <div class="mt-2">
                         <label class="form-label">Images</label>
-                        <input type="file" class="form-control" wire:model="variations.{{ $index }}.images" multiple
+                        <input type="file" class="form-control" wire:model="tempImages.{{ $index }}" multiple
                             accept="image/*">
                         @error("variations.$index.images")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
+                        @error("tempImages.$index.*")
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
 
-                        @if (isset($variations[$index]['images']))
-                            <div class="d-flex mt-2">
-                                @foreach($variations[$index]['images'] as $image)
-                                    <img src="{{ $image->temporaryUrl() }}" width="50" class="me-2">
+                        <!-- Display uploaded images with remove button -->
+                        @if (isset($variations[$index]['images']) && count($variations[$index]['images']) > 0)
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                @foreach($variations[$index]['images'] as $imageIndex => $image)
+                                    <div class="position-relative" style="width: 80px; height: 80px;">
+                                        <img src="{{ $image->temporaryUrl() }}" class="img-thumbnail w-100 h-100"
+                                            style="object-fit: cover;" alt="Product image">
+                                        <button type="button" wire:click="removeImage({{ $index }}, {{ $imageIndex }})"
+                                            class="btn btn-danger btn-sm position-absolute top-0 end-0 rounded-circle"
+                                            style="width: 24px; height: 24px; padding: 0; line-height: 1; transform: translate(8px, -8px);">
+                                            <i class="bi bi-x"></i>
+                                        </button>
+                                    </div>
                                 @endforeach
                             </div>
                         @endif
+
+                        <!-- Loading indicator when uploading -->
+                        <div wire:loading wire:target="tempImages.{{ $index }}" class="mt-2">
+                            <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                <span class="visually-hidden">Uploading...</span>
+                            </div>
+                            <span class="ms-2 text-muted">Uploading images...</span>
+                        </div>
                     </div>
 
                     <!-- Specifications -->
