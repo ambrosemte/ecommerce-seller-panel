@@ -1,21 +1,21 @@
 <div class="container">
-     <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="fw-bold mb-0">Stores List</h3>
     </div>
-    
-    <table class="table">
-        <thead>
+
+    <table class="table table-bordered table-hover table-striped align-middle">
+        <thead class="table-dark">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Followers</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($stores as $store)
+            @foreach ($stores as $index => $store)
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">{{ $index + 1 }}</th>
                     <td>{{$store['name']}}</td>
                     <td>{{$store['followers_count']}}</td>
                     <td>

@@ -58,7 +58,7 @@ class ViewProduct extends Component
 
             if (!$response->successful()) {
                 noty()->error($responseData['message']);
-                return $this->redirect(route('store'));
+                return;
             }
 
             noty()->success($responseData['message']);
@@ -66,6 +66,33 @@ class ViewProduct extends Component
         } catch (\Exception $e) {
             Log::error('Delete Product Error: ' . $e->getMessage());
             noty()->error("An error occurred while deleting the product. Please try again.");
+        }
+
+    }
+
+    public function deleteVariation(string $variationId)
+    {
+        try {
+            $headers = [
+                "Authorization" => "Bearer " . session()->get('token'),
+                "Accept" => "application/json"
+            ];
+            $response = Http::withHeaders($headers)
+                ->delete(ApiEndpoints::BASE_URL . ApiEndpoints::DELETE_PRODUCT_VARIATION . "/$this->productId/variation/$variationId");
+
+            $responseData = $response->json();
+
+            if (!$response->successful()) {
+                noty()->error($responseData['message']);
+                return;
+            }
+
+            $this->getProduct();
+            noty()->success($responseData['message']);
+
+        } catch (\Exception $e) {
+            Log::error('Delete Product Variation Error: ' . $e->getMessage());
+            noty()->error("An error occurred while deleting the product variation. Please try again.");
         }
 
     }

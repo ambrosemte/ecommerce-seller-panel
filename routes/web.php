@@ -7,10 +7,13 @@ use App\Livewire\Product\CreateProduct;
 use App\Livewire\Store\CreateStore;
 use App\Livewire\Dashboard;
 use App\Livewire\Order\ListOrder;
+use App\Livewire\Product\EditProduct;
 use App\Livewire\Product\ListProduct;
 use App\Livewire\Store\ListStore;
 use App\Livewire\Store\ViewStore;
 use App\Livewire\Product\ViewProduct;
+use App\Livewire\Story\CreateStory;
+use App\Livewire\Story\ListStory;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,11 +38,18 @@ Route::group(['middleware' => CheckAuth::class], function () {
     Route::group(['prefix' => "product"], function () {
         Route::get('/', ListProduct::class)->name('product');
         Route::get('create', CreateProduct::class)->name('product.create');
+        Route::get('{id}/edit', EditProduct::class)->name('product.edit');
         Route::get('{id}', ViewProduct::class)->name('product.view');
     });
 
     //order
     Route::group(['prefix' => "order"], function () {
         Route::get('/', ListOrder::class)->name('order');
+    });
+
+    //story
+    Route::group(['prefix' => "story"], function () {
+        Route::get('/', ListStory::class)->name('story');
+        Route::get('create', CreateStory::class)->name('story.create');
     });
 });

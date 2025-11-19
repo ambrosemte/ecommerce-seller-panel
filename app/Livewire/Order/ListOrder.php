@@ -10,7 +10,10 @@ use Livewire\Component;
 
 class ListOrder extends Component
 {
+    public int $totalOrders = 0;
+    public int $page = 1;
     public array $orders = [];
+    public array $links = [];
 
     public function mount()
     {
@@ -25,7 +28,9 @@ class ListOrder extends Component
                 "Accept" => "application/json"
             ];
             $response = Http::withHeaders($headers)
-                ->get(ApiEndpoints::BASE_URL . ApiEndpoints::LIST_ORDERS);
+                ->get(ApiEndpoints::BASE_URL . ApiEndpoints::LIST_ORDERS, [
+                    'page' => $this->page,
+                ]);
 
             $responseData = $response->json();
 
@@ -34,7 +39,9 @@ class ListOrder extends Component
                 return;
             }
 
-            $this->orders = $responseData['data'];
+            $this->orders = $responseData['data']['data'];
+            $this->links = $responseData['data']['links'];
+            $this->totalOrders = $responseData['data']['total'];
 
         } catch (\Exception $e) {
             Log::error('Fetch Orders Error: ' . $e->getMessage());
@@ -79,6 +86,22 @@ class ListOrder extends Component
         } else {
             noty()->error($responseData['message']);
         }
+    }
+
+
+    public function gotoPage($url)
+    {
+        // Parse the query string
+        $parsedUrl = parse_url($url);
+        $query = $parsedUrl['query'] ?? '';
+
+        // Convert query string to array
+        parse_str($query, $queryParams);
+
+        // Get the page parameter
+        $this->page = $queryParams['page'] ?? null;
+
+        $this->getOrders();
     }
 
     #[Layout('components.layouts.app')]

@@ -130,7 +130,6 @@ class CreateProduct extends Component
         }
     }
 
-
     public function getStores()
     {
         $headers = [
@@ -154,7 +153,7 @@ class CreateProduct extends Component
         $response = Http::withHeaders($headers)->get(ApiEndpoints::BASE_URL . ApiEndpoints::LIST_CATEGORIES);
 
         $responseData = $response->json();
-        $this->categories = $responseData['data'];
+        $this->categories = $responseData['data'] ?? [];
     }
 
     public function getSpecifications()
@@ -216,7 +215,7 @@ class CreateProduct extends Component
         foreach ($this->variations as $index => $variation) {
             $httpRequest->attach("variations[$index][quantity]", $variation['quantity']);
             $httpRequest->attach("variations[$index][price]", $variation['price']);
-            if (!is_null($variation['discount']) && $variation['discount'] != 0) {
+            if (!empty($variation['id'])) {
                 $httpRequest->attach("variations[$index][discount]", $variation['discount']);
             }
 

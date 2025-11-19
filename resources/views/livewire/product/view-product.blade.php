@@ -1,5 +1,5 @@
 <div class="container">
-     <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="fw-bold mb-0">View Product</h3>
     </div>
 
@@ -57,6 +57,13 @@
                                                 <p class="text-muted">No specifications for this variation.</p>
                                             @endif
                                         </div>
+
+                                    </div>
+                                    <div class="mt-4">
+                                        <a class="btn btn-danger" wire:click="deleteVariation('{{ $variation['id'] }}')"
+                                            wire:confirm="Are you sure you want to delete this variation">
+                                            Delete Variation
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -66,12 +73,16 @@
                     @endif
 
                     <div class="mt-4">
-                        <a href="{{ route('product') }}" class="btn btn-outline-secondary">Back to
-                            Products</a>
-                        <a href="" class="btn btn-primary">Edit
-                            Product</a>
-                        <a class="btn btn-danger" wire:click="deleteProduct">Delete
-                            Product</a>
+                        <a href="{{ route('product') }}" class="btn btn-outline-secondary">
+                            Back to Products
+                        </a>
+                        <a href="{{ route('product.edit', ['id' => $product['id']]) }}" class="btn btn-primary">
+                            Edit Product
+                        </a>
+                        <a class="btn btn-danger" wire:click="deleteProduct"
+                            wire:confirm="Are you sure you want to delete this product">
+                            Delete Product
+                        </a>
                     </div>
                 </div>
             </div>

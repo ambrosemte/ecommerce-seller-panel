@@ -1,14 +1,14 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold mb-0">Create Product</h3>
+        <h3 class="fw-bold mb-0">Edit Product</h3>
     </div>
 
-    <form wire:submit.prevent="createProduct">
+    <form wire:submit.prevent="updateProduct">
         <!-- Store & Category Selection -->
         <div class="mb-3 row">
             <div class="col">
                 <label for="storeId" class="form-label">Store</label>
-                <select class="form-control" id="storeId" wire:model="storeId">
+                <select class="form-control" id="storeId" wire:model="storeId" disabled>
                     <option value="">Select Store</option>
                     @foreach($stores as $store)
                         <option value="{{ $store['id'] }}">{{ $store['name'] }}</option>
@@ -21,7 +21,7 @@
 
             <div class="col">
                 <label for="categoryId" class="form-label">Category</label>
-                <select class="form-control" id="categoryId" wire:model="categoryId" wire:change="getSpecifications">
+                <select class="form-control" id="categoryId" wire:model="categoryId" wire:change="getSpecifications" disabled>
                     <option value="">Select Category</option>
                     @foreach($categories as $category)
                         <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
@@ -82,9 +82,30 @@
                         </div>
                     </div>
 
-                    <!-- Variation Images -->
+                    <!-- Existing Images -->
                     <div class="mt-2">
-                        <label class="form-label">Images</label>
+                        <label class="form-label">Existing Images</label>
+                        @if(isset($variations[$index]['existing_images']))
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                @foreach($variations[$index]['existing_images'] as $imageIndex => $imgUrl)
+                                    <div class="position-relative" style="width: 80px; height: 80px;">
+                                        <img src="{{ $imgUrl }}" class="img-thumbnail w-100 h-100" style="object-fit: cover;">
+
+                                        <button type="button" wire:click="removeExistingImage({{ $index }}, {{ $imageIndex }})"
+                                            class="btn btn-danger btn-sm position-absolute top-0 end-0 rounded-circle"
+                                            style="width: 24px; height: 24px; padding: 0; line-height: 1; transform: translate(8px, -8px);">
+                                            <i class="bi bi-x"></i>
+                                        </button>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+
+                    </div>
+
+                    <!-- New Images Upload -->
+                    <div class="mt-2">
+                        <label class="form-label">Upload New Images</label>
                         <input type="file" class="form-control" wire:model="tempImages.{{ $index }}" multiple
                             accept="image/*">
                         <small class="form-text text-muted">Select at least 1 and up to 10 images.</small>
@@ -96,7 +117,7 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
 
-                        <!-- Display uploaded images with remove button -->
+                        <!-- Display newly uploaded images -->
                         @if (isset($variations[$index]['images']) && count($variations[$index]['images']) > 0)
                             <div class="d-flex flex-wrap gap-2 mt-3">
                                 @foreach($variations[$index]['images'] as $imageIndex => $image)
@@ -113,7 +134,6 @@
                             </div>
                         @endif
 
-                        <!-- Loading indicator when uploading -->
                         <div wire:loading wire:target="tempImages.{{ $index }}" class="mt-2">
                             <div class="spinner-border spinner-border-sm text-primary" role="status">
                                 <span class="visually-hidden">Uploading...</span>
@@ -207,8 +227,8 @@
 
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
-            <span wire:loading.remove wire:target="createProduct">Submit</span>
-            <span wire:loading wire:target="createProduct">
+            <span wire:loading.remove wire:target="updateProduct">Update</span>
+            <span wire:loading wire:target="updateProduct">
                 <span class="spinner-border spinner-border-sm me-1"></span> Processing...
             </span>
         </button>

@@ -4,8 +4,8 @@ namespace App\Constants;
 
 class ApiEndpoints
 {
-    //const BASE_URL = "127.0.0.1:8000";
-    const BASE_URL = "https://backend-ecommerce.mtedev.com.ng";
+    const BASE_URL = "127.0.0.1:8000";
+    //const BASE_URL = "https://backend-ecommerce.mtedev.com.ng";
 
     // AUTH
     const LOGIN = "/api/v1/auth/login";
@@ -30,8 +30,10 @@ class ApiEndpoints
     const LIST_PRODUCTS = "/api/v1/product";
     const CREATE_PRODUCT = "/api/v1/product";
     const VIEW_PRODUCT = "/api/v1/product";
-    const UPDATE_PRODUCT = "/api/v1/product/{id}/update";
+    const SEARCH_PRODUCT = "/api/v1/product/search/seller";
+    const EDIT_PRODUCT = "/api/v1/product";
     const DELETE_PRODUCT = "/api/v1/product";
+    const DELETE_PRODUCT_VARIATION = "/api/v1/product";
 
     // ORDER
     const LIST_ORDERS = "/api/v1/order";
@@ -43,5 +45,9 @@ class ApiEndpoints
 
     //SPECIFICATION
     const LIST_SPECIFICATIONS_BY_CATEGORY = "/api/v1/specification";
+
+    // STORY
+    const LIST_STORIES = "/api/v1/story/all";
+    const CREATE_STORY = "/api/v1/story";
 
 }

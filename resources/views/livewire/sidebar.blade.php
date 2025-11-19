@@ -75,7 +75,7 @@
     </a>
 
     <!-- Store Dropdown -->
-    <div @class(["menu-item", "active" => request()->is('store')||request()->is('store/*')])
+    <div @class(["menu-item", "active" => request()->is('store') || request()->is('store/*')])
         onclick="toggleDropdown('storeDropdown')">
         <i class="las la-store menu-icon"></i>
         <span>Store</span>
@@ -97,7 +97,7 @@
     </div>
 
     <!-- Product Dropdown -->
-    <div @class(["menu-item", "active" => request()->is('product')||request()->is('product/*')])
+    <div @class(["menu-item", "active" => request()->is('product') || request()->is('product/*')])
         onclick="toggleDropdown('productDropdown')">
         <i class="las la-box menu-icon"></i>
         <span>Product</span>
@@ -118,9 +118,9 @@
         </a>
     </div>
 
-
     <!-- Orders Dropdown -->
-    <div @class(["menu-item", "active" => request()->is('order')||request()->is('order/*')]) onclick="toggleDropdown('orderDropdown')">
+    <div @class(["menu-item", "active" => request()->is('order') || request()->is('order/*')])
+        onclick="toggleDropdown('orderDropdown')">
         <i class="las la-shopping-bag menu-icon"></i>
         <span>Orders</span>
         <i class="las la-angle-down ms-auto"></i>
@@ -130,6 +130,28 @@
             <div class="menu-item">
                 <i class="las la-list-alt menu-icon"></i>
                 <span>Orders List</span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Story Dropdown -->
+    <div @class(["menu-item", "active" => request()->is('story') || request()->is('story/*')])
+        onclick="toggleDropdown('storyDropdown')">
+        <i class="las la-dot-circle menu-icon"></i>
+        <span>Story</span>
+        <i class="las la-angle-down ms-auto"></i>
+    </div>
+    <div id="storyDropdown" class="dropdown">
+        <a href="{{ route('story') }}" class="text-decoration-none">
+            <div class="menu-item">
+                <i class="las la-list-alt menu-icon"></i>
+                <span>Stories List</span>
+            </div>
+        </a>
+        <a href="{{ route('story.create') }}" class="text-decoration-none">
+            <div class="menu-item">
+                <i class="las la-plus-circle menu-icon"></i>
+                <span>Create Story</span>
             </div>
         </a>
     </div>
