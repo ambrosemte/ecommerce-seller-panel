@@ -40,7 +40,7 @@
                         @else
                             <div class="rounded-circle bg-dark d-flex justify-content-center align-items-center me-2"
                                 style="width: 40px; height: 40px;">
-                                <i class="fas fa-play text-white"></i>
+                                <i class="la la-play text-white"></i>
                             </div>
                         @endif
 
@@ -65,7 +65,7 @@
                                     <img src="{{ $story['media_url'] }}" class="img-fluid w-100"
                                         style="max-height: 90vh; object-fit: contain;">
                                 @else
-                                    <video id="video-{{ $story['id'] }}" controls autoplay class="w-100"
+                                    <video id="video-{{ $story['id'] }}" controls class="w-100"
                                         style="max-height: 90vh; object-fit: contain;">
                                         <source src="{{ $story['media_url'] }}" type="video/mp4">
                                     </video>
