@@ -10,6 +10,9 @@
         position: fixed;
         top: 0;
         left: 0;
+        overflow-y: auto;
+        transition: transform 0.3s ease;
+        z-index: 1000;
     }
 
     .logo {
@@ -60,6 +63,18 @@
 
     .dropdown .menu-item:hover {
         background-color: #dee2e6;
+    }
+
+    @media (max-width: 768px) {
+
+        .sidebar {
+            transform: translateX(-100%);
+            top: 70px
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+        }
     }
 </style>
 
