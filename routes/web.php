@@ -12,6 +12,9 @@ use App\Livewire\Product\ListProduct;
 use App\Livewire\Store\ListStore;
 use App\Livewire\Store\ViewStore;
 use App\Livewire\Product\ViewProduct;
+use App\Livewire\PromoBanner\CreatePromoBanner;
+use App\Livewire\PromoBanner\EditPromoBanner;
+use App\Livewire\PromoBanner\ListPromoBanner;
 use App\Livewire\Story\CreateStory;
 use App\Livewire\Story\ListStory;
 use Illuminate\Support\Facades\Route;
@@ -51,5 +54,12 @@ Route::group(['middleware' => CheckAuth::class], function () {
     Route::group(['prefix' => "story"], function () {
         Route::get('/', ListStory::class)->name('story');
         Route::get('create', CreateStory::class)->name('story.create');
+    });
+
+      //promo banner
+    Route::group(['prefix' => "promo-banner"], function () {
+        Route::get('/', ListPromoBanner::class)->name('promo.banner');
+        Route::get('create', CreatePromoBanner::class)->name('promo.banner.create');
+        Route::get('{id}/edit', EditPromoBanner::class)->name('promo.banner.edit');
     });
 });

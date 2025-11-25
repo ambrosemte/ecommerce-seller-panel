@@ -5,9 +5,10 @@
 
     <div class="card shadow-sm">
         <div class="row g-0">
-            <div class="col-md-5">
+            <div class="col-md-5 d-flex align-items-center">
                 <img src="{{ $product['product_variations'][0]['product_media']['featured_media_url'] ?? 'https://via.placeholder.com/500x300' }}"
-                    class="img-fluid rounded-start" alt="{{ $product['name'] }}">
+                    class="img-fluid rounded-start" style="object-fit: contain;max-height: 350px;width: 100%;"
+                    alt="{{ $product['name'] }}">
             </div>
             <div class="col-md-7">
                 <div class="card-body">
@@ -60,10 +61,30 @@
 
                                     </div>
                                     <div class="mt-4">
-                                        <a class="btn btn-danger" wire:click="deleteVariation('{{ $variation['id'] }}')"
-                                            wire:confirm="Are you sure you want to delete this variation">
-                                            Delete Variation
-                                        </a>
+                                        <button
+                                            wire:click="activateDeactivateVariation('{{ $variation['id'] }}','{{ $variation['is_active'] }}')"
+                                            class="btn btn-secondary" wire:loading.attr="disabled"
+                                            wire:target="activateDeactivateVariation('{{ $variation['id'] }}','{{ $variation['is_active'] }}')">
+                                            <span wire:loading.remove
+                                                wire:target="activateDeactivateVariation('{{ $variation['id'] }}','{{ $variation['is_active'] }}')">
+                                                {{ $variation['is_active'] ? 'Deactivate Variation' : 'Activate Variation' }}
+                                            </span>
+                                            <span wire:loading
+                                                wire:target="activateDeactivateVariation('{{ $variation['id'] }}','{{ $variation['is_active'] }}')">
+                                                <span class="spinner-border spinner-border-sm me-1"></span> Processing...
+                                            </span>
+                                        </button>
+                                        <button class="btn btn-danger" wire:click="deleteVariation('{{ $variation['id'] }}')"
+                                            wire:confirm="Are you sure you want to delete this variation"
+                                            wire:loading.attr="disabled"
+                                            wire:target="deleteVariation('{{ $variation['id'] }}')">
+                                            <span wire:loading.remove wire:target="deleteVariation('{{ $variation['id'] }}')">
+                                                Delete Variation
+                                            </span>
+                                            <span wire:loading wire:target="deleteVariation('{{ $variation['id'] }}')">
+                                                <span class="spinner-border spinner-border-sm me-1"></span> Processing...
+                                            </span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -79,10 +100,10 @@
                         <a href="{{ route('product.edit', ['id' => $product['id']]) }}" class="btn btn-primary">
                             Edit Product
                         </a>
-                        <a class="btn btn-danger" wire:click="deleteProduct"
+                        <button class="btn btn-danger" wire:click="deleteProduct"
                             wire:confirm="Are you sure you want to delete this product">
                             Delete Product
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -63,8 +63,8 @@
         @if (!empty($storeId))
             <div class="mb-3 row">
                 <div class="col">
-                    <label for="storeId" class="form-label">Product</label>
-                    <input type="text" class="form-control" placeholder="Search product..."
+                    <label for="product" class="form-label">Product (Optional)</label>
+                    <input type="text" id="product" class="form-control" placeholder="Search product..."
                         wire:model.live.debounce.300ms="search">
 
                     @if(!empty($searchedProducts))

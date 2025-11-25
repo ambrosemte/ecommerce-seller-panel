@@ -97,6 +97,53 @@ class ViewProduct extends Component
 
     }
 
+    public function activateDeactivateVariation(string $id, bool $status)
+    {
+        $status ? $this->deactivateVariation($id) : $this->activateVariation($id);
+    }
+
+    public function activateVariation(string $id)
+    {
+        $headers = [
+            "Authorization" => "Bearer " . session()->get('token'),
+            "Accept" => "application/json"
+        ];
+
+        $response = Http::withHeaders($headers)
+            ->patch(ApiEndpoints::BASE_URL . ApiEndpoints::ACTIVATE_PRODUCT_VARIATION . "/{$id}/activate");
+
+        $responseData = $response->json();
+
+        if (!$response->successful()) {
+            noty()->error($responseData['message']);
+            return;
+        }
+
+        $this->getProduct();
+        noty()->success($responseData['message']);
+    }
+
+    public function deactivateVariation(string $id)
+    {
+        $headers = [
+            "Authorization" => "Bearer " . session()->get('token'),
+            "Accept" => "application/json"
+        ];
+
+        $response = Http::withHeaders($headers)
+            ->patch(ApiEndpoints::BASE_URL . ApiEndpoints::DEACTIVATE_PRODUCT_VARIATION . "/{$id}/deactivate");
+
+        $responseData = $response->json();
+
+        if (!$response->successful()) {
+            noty()->error($responseData['message']);
+            return;
+        }
+
+        $this->getProduct();
+        noty()->success($responseData['message']);
+    }
+
     #[Layout('components.layouts.app')]
     public function render()
     {

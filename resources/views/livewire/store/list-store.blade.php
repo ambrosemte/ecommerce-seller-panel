@@ -9,6 +9,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Followers</th>
+                <th scope="col">Active</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -16,8 +17,9 @@
             @foreach ($stores as $index => $store)
                 <tr>
                     <th scope="row">{{ $index + 1 }}</th>
-                    <td>{{$store['name']}}</td>
-                    <td>{{$store['followers_count']}}</td>
+                    <td>{{ $store['name'] }}</td>
+                    <td>{{ $store['followers_count'] }}</td>
+                    <td>{{ $store['is_active'] ? '✅' : '❌' }}</td>
                     <td>
                         <button class="btn btn-primary" wire:click="viewStore('{{$store['id']}}')">View</button>
                     </td>

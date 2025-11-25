@@ -16,14 +16,16 @@ class ApiEndpoints
     // USER
     const GET_PROFILE = "/api/v1/user/profile";
     const CHECK_AUTH = "/api/v1/user/check-authentication";
-    const UPDATE_PROFILE_IMAGE = "/api/v1/user/profile/image/update";
-    const UPDATE_PROFILE = "/api/v1/user/profile/update";
-    const UPDATE_PREFERRED_CURRENCY = "/api/v1/user/preferred-currency";
+
+    //DASHBOARD
+    const GET_DASHBOARD = "/api/v1/dashboard/seller";
 
     // STORE
     const LIST_STORES = "/api/v1/store";
     const CREATE_STORE = "/api/v1/store";
     const VIEW_STORE = "/api/v1/store";
+    const ACTIVATE_STORE = "/api/v1/store/activate";
+    const DEACTIVATE_STORE = "/api/v1/store/deactivate";
     const DELETE_STORE = "/api/v1/store";
 
     // PRODUCT
@@ -32,6 +34,8 @@ class ApiEndpoints
     const VIEW_PRODUCT = "/api/v1/product";
     const SEARCH_PRODUCT = "/api/v1/product/search/seller";
     const EDIT_PRODUCT = "/api/v1/product";
+    const ACTIVATE_PRODUCT_VARIATION = "/api/v1/product/variation";
+    const DEACTIVATE_PRODUCT_VARIATION = "/api/v1/product/variation";
     const DELETE_PRODUCT = "/api/v1/product";
     const DELETE_PRODUCT_VARIATION = "/api/v1/product";
 
@@ -49,5 +53,11 @@ class ApiEndpoints
     // STORY
     const LIST_STORIES = "/api/v1/story/all";
     const CREATE_STORY = "/api/v1/story";
+
+    //PROMO BANNER
+    const LIST_PROMO_BANNER = "/api/v1/promo-banner/all";
+    const CREATE_PROMO_BANNER = "/api/v1/promo-banner";
+    const VIEW_PROMO_BANNER = "/api/v1/promo-banner";
+    const EDIT_PROMO_BANNER = "/api/v1/promo-banner";
 
 }

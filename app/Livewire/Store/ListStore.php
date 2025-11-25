@@ -28,6 +28,7 @@ class ListStore extends Component
             $response = Http::withHeaders($headers)->get(ApiEndpoints::BASE_URL . ApiEndpoints::LIST_STORES);
 
             $responseData = $response->json();
+            
             if (!$response->successful()) {
                 noty()->error($responseData['message']);
                 return;

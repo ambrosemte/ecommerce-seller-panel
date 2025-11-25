@@ -9,11 +9,9 @@ use Livewire\Component;
 
 class ViewStore extends Component
 {
-    public string $id;
-    public $store;
+    public string $id = '';
+    public array $store = [];
     public array $products = [];
-    public array $productVariations = [];
-    public $productMedia;
 
     public function mount()
     {
@@ -28,9 +26,11 @@ class ViewStore extends Component
             "Accept" => "application/json"
         ];
 
-        $response = Http::withHeaders($headers)->get(ApiEndpoints::BASE_URL . ApiEndpoints::VIEW_STORE . "/" . $this->id);
+        $response = Http::withHeaders($headers)
+            ->get(ApiEndpoints::BASE_URL . ApiEndpoints::VIEW_STORE . "/{$this->id}");
 
         $responseData = $response->json();
+
         if (!$response->successful()) {
             noty()->error($responseData['message']);
             return $this->redirect(route('store'));
@@ -38,8 +38,6 @@ class ViewStore extends Component
 
         $this->store = $responseData['data'];
         $this->products = $responseData['data']['products'];
-        // $this->productVariations = $responseData['data']['products'][0]['product_variations'][0] ?? [];
-        //$this->productMedia = $responseData['data']['products'][0]['product_variations'][0]['product_media'] ?? [];
     }
 
     public function deleteStore()
@@ -50,16 +48,66 @@ class ViewStore extends Component
             "Accept" => "application/json"
         ];
 
-        $response = Http::withHeaders($headers)->delete(ApiEndpoints::BASE_URL . ApiEndpoints::DELETE_STORE . "/{$this->id}");
+        $response = Http::withHeaders($headers)
+            ->delete(ApiEndpoints::BASE_URL . ApiEndpoints::DELETE_STORE . "/{$this->id}");
 
         $responseData = $response->json();
 
-        if ($response->successful()) {
-            noty()->success($responseData['message']);
-            return $this->redirect(route('store'));
-        } else {
+        if (!$response->successful()) {
             noty()->error($responseData['message']);
+            return;
         }
+
+        noty()->success($responseData['message']);
+        return $this->redirect(route('store'));
+    }
+
+    public function activateDeactivateStore($status)
+    {
+
+        $status ? $this->deactivateStore() : $this->activateStore();
+    }
+
+    public function activateStore()
+    {
+        $headers = [
+            "Authorization" => "Bearer " . session()->get('token'),
+            "Accept" => "application/json"
+        ];
+
+        $response = Http::withHeaders($headers)
+            ->patch(ApiEndpoints::BASE_URL . ApiEndpoints::ACTIVATE_STORE . "/{$this->id}");
+
+        $responseData = $response->json();
+
+        if (!$response->successful()) {
+            noty()->error($responseData['message']);
+            return;
+        }
+
+        $this->viewStore();
+        noty()->success($responseData['message']);
+    }
+
+    public function deactivateStore()
+    {
+        $headers = [
+            "Authorization" => "Bearer " . session()->get('token'),
+            "Accept" => "application/json"
+        ];
+
+        $response = Http::withHeaders($headers)
+            ->patch(ApiEndpoints::BASE_URL . ApiEndpoints::DEACTIVATE_STORE . "/{$this->id}");
+
+        $responseData = $response->json();
+
+        if (!$response->successful()) {
+            noty()->error($responseData['message']);
+            return;
+        }
+
+        $this->viewStore();
+        noty()->success($responseData['message']);
     }
 
     #[Layout('components.layouts.app')]

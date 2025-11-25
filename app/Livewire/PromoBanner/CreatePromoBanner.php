@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Livewire\Story;
+namespace App\Livewire\PromoBanner;
+
 use App\Constants\ApiEndpoints;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -8,21 +9,21 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class CreateStory extends Component
+class CreatePromoBanner extends Component
 {
     use WithFileUploads;
 
-    public bool $showLoader = false;
-    public string $storeId = '';
-    public string $caption = '';
+    public string $title = '';
+    public string $subtitle = '';
+    public string $buttonText = '';
+    public string $actionUrl = '';
     public string $search = '';
+    public string $storeId = '';
     public string $selectedProduct = '';
-
-    public ?int $duration = null;
+    public bool $status;
     public array $stores = [];
     public array $searchedProducts = [];
-    public $mediaFile;
-
+    public $image;
 
     public function mount()
     {
@@ -73,52 +74,6 @@ class CreateStory extends Component
         }
     }
 
-    public function createStory()
-    {
-        $this->validate([
-            'caption' => 'required|string|max:1000',
-            'mediaFile' => 'required|file|mimes:jpg,jpeg,png,webp,mp4,mov|max:10240',
-            'storeId' => 'required|string',
-            'duration' => 'nullable|integer|min:1|max:168',
-            'selectedProduct' => 'nullable|string',
-        ]);
-
-        try {
-            // Convert Livewire file to a real file
-            $mediaPath = $this->mediaFile->getRealPath();
-            $mediaName = $this->mediaFile->getClientOriginalName();
-
-            // API Headers
-            $headers = [
-                "Authorization" => "Bearer " . session()->get('token'),
-                "Accept" => "application/json"
-            ];
-
-            $response = Http::withHeaders($headers)
-                ->attach('file', file_get_contents($mediaPath), $mediaName)
-                ->post(ApiEndpoints::BASE_URL . ApiEndpoints::CREATE_STORY, [
-                    "caption" => $this->caption,
-                    "duration_hours" => $this->duration,
-                    "store_id" => $this->storeId,
-                    "product_id"=>$this->selectedProduct
-                ]);
-            $responseData = $response->json();
-
-            if (!$response->successful()) {
-                noty()->error($responseData['message']);
-                return;
-            }
-
-            $this->reset();
-            $this->getStore();
-            noty()->success($responseData['message']);
-        } catch (\Exception $e) {
-            Log::error('Create Story Error: ' . $e->getMessage());
-            noty()->error("An error occurred while creating story. Please try again.");
-        }
-    }
-
-
     public function searchProduct(string $query)
     {
         try {
@@ -130,7 +85,6 @@ class CreateStory extends Component
             $response = Http::withHeaders($headers)
                 ->get(ApiEndpoints::BASE_URL . ApiEndpoints::SEARCH_PRODUCT, [
                     "query" => $query,
-                    "store_id" => $this->storeId,
                 ]);
 
             $responseData = $response->json();
@@ -148,9 +102,57 @@ class CreateStory extends Component
         }
     }
 
+    public function createPromoBanner()
+    {
+        $this->validate([
+            'title' => 'required|string',
+            'subtitle' => 'nullable|string',
+            'buttonText' => 'nullable|string',
+            'image' => 'required|image|max:5120',
+            'status' => 'boolean',
+            'storeId' => 'required|string',
+            'selectedProduct' => 'nullable|string',
+        ]);
+
+        try {
+            // Convert Livewire file to a real file
+            $imagePath = $this->image->getRealPath();
+            $imageName = $this->image->getClientOriginalName();
+
+            // API Headers
+            $headers = [
+                "Authorization" => "Bearer " . session()->get('token'),
+                "Accept" => "application/json"
+            ];
+
+            $response = Http::withHeaders($headers)
+                ->attach('image', file_get_contents($imagePath), $imageName)
+                ->post(ApiEndpoints::BASE_URL . ApiEndpoints::CREATE_PROMO_BANNER, [
+                    "title" => $this->title,
+                    "subtitle" => $this->subtitle,
+                    "button_text" => $this->buttonText,
+                    "is_active" => $this->status,
+                    "store_id" => $this->storeId,
+                    "product_id" => $this->selectedProduct
+                ]);
+            $responseData = $response->json();
+
+            if (!$response->successful()) {
+                noty()->error($responseData['message']);
+                return;
+            }
+
+            noty()->success($responseData['message']);
+            return redirect()->route('promo.banner');
+        } catch (\Exception $e) {
+            Log::error('Create Promo Banner Error: ' . $e->getMessage());
+            noty()->error("An error occurred while creating promo banner. Please try again.");
+        }
+    }
+
     #[Layout('components.layouts.app')]
     public function render()
     {
-        return view('livewire.story.create-story');
+        return view('livewire.promo-banner.create-promo-banner');
     }
 }

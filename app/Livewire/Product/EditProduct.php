@@ -347,7 +347,7 @@ class EditProduct extends Component
             // Attach variations
             foreach ($this->variations as $vIndex => $variation) {
                 if (!empty($variation['id'])) {
-                    $httpRequest->attach("variations[$vIndex][id", $variation['id']);
+                    $httpRequest->attach("variations[$vIndex][id]", $variation['id']);
                 }
                 $httpRequest->attach("variations[$vIndex][quantity]", $variation['quantity']);
                 $httpRequest->attach("variations[$vIndex][price]", $variation['price']);
